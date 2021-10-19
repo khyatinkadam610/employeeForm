@@ -1,0 +1,29 @@
+<!-- <p>employee-table works!</p> -->
+<a [routerLink]="['/form',0]" routerLinkActive="router-link-active"  href="">add</a>
+
+<div class="table-responsive" *ngIf="employees && employees.length">          
+    <table class="table" >
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Contact No</th>
+          <th>Department Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <!-- <td>{{employee.employeeId}}</td> -->
+          <td>{{employee.name}}</td>
+          <!-- <td>{{employee.birthDate}}</td> -->
+          <td>{{employee.contactno}}</td>
+          <td>{{employee.department}}</td>
+          <td>{{employee.email}}</td>
+          <td> <a [routerLink]="['/form',employee.employeeId]" >edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

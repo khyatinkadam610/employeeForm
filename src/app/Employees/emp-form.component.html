@@ -1,53 +1,71 @@
-<p>emp-form works!</p>
+<!-- <p>emp-form works!</p> -->
 
-<div class="container">
-    <form action="">
-    <div class="row">
-      <div class="col-25">
-        <label for="name">Name</label>
-      </div>
-      <div class="col-75">
-        <input type="text" required ngModel  id="name" name="name" placeholder="Your name..">
-        <div></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="lname">Contact no</label>
-      </div>
-      <div class="col-75">
-        <input type="number" id="contact_no" name="contact_no" placeholder="Your number ">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="lname"> Email</label>
-      </div>
-      <div class="col-75">
-        <input type="email" id="email" name="email" placeholder="Your email ">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="department">department</label>
-      </div>
-      <div class="col-75">
-        <select id="department" name="department">
-          <option value="australia">Managed Service</option>
-          <option value="canada">Professional Service</option>
-          <option value="usa">Product Service</option>
-          <option value="usa"> HR </option>
-          <option value="usa"> Admin</option>
-          <option value="usa"> Finance</option>
-          <option value="usa">Sales and Marketing</option>
-        </select>
-      </div>
-    </div>
+<div>
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" #emp="ngForm">
+        {{emp.value|json}}
+        <hr />
+        {{this.formdata|json}}
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                Employee Name :
+            </label>
+            <input type="text" #name="ngModel" [class.border-red-500]="name.invalid && name.touched"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" [(ngModel)]="this.formdata.name" name="name" required>
+                <small  [class.invisible]="name.valid || name.untouched " class=" text-red-500 text-xs italic">This field is required*</small>
+        </div>
 
-    <div class="row">
-        <input type="button" (click)='addEmployee()' value="add">
-      <!-- <input type="submit" value="Submit"> -->
-    </div>
+
+        <!-- {{name.dirty}} -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                Email :
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="email" name="email" [ngModel]="this.formdata.email" required placeholder="Enter email">
+                
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                MobileNo. :
+            </label>
+            <input
+                #contactno="ngModel"
+                [class.border-red-500]="contactno.invalid && contactno.touched"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               type="tel" name="contactno" [ngModel]="this.formdata.contactno"
+                pattern="^\d{10}$" required  placeholder="Must be 10 digit number" [ngModel]="this.formdata.contactno"
+                required>
+                <div *ngIf="contactno.errors && (contactno.invalid && contactno.touched)">
+                    <small class=" text-red-500 text-xs italic" *ngIf="contactno.errors.required">Contact number is required*</small>
+                    <small class=" text-red-500 text-xs italic" *ngIf="contactno.errors.pattern">Contact number must be of 10-digits*</small>
+                </div>
+                
+        </div>
+
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Department:
+            </label>
+            <select
+                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state" [ngModel]="this.formdata.department" name="dropdown">
+                <option value=0 selected>HR</option>
+                <option value=1>Manager</option>
+                <option value=2>Managed Service</option>
+                <option value=3>Product Service</option>
+                <option value=4>Finance</option>
+                <option value=5>Admin</option>
+            </select>
+        </div>
+        <div>
+
+            <input
+                class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-400"
+                type="button" (click)='addEmployee()' value="add">
+        </div>
+
+
     </form>
-  </div>
-  
+</div>
